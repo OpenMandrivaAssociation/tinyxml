@@ -7,7 +7,7 @@
 Summary:	A small and simple XML parser
 Name:		tinyxml
 Version:	%(echo %realver| tr '_' '.')
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	zlib
 Group:		System/Libraries
 Url:		http://www.grinninglizard.com/tinyxml/
@@ -60,7 +60,7 @@ mkdir -p %{buildroot}%{_includedir}
 install -m 755 lib%{name}.so.0.%{version} %{buildroot}%{_libdir}
 ln -s lib%{name}.so.%{major}.%{version} %{buildroot}%{_libdir}/lib%{name}.so.%{major}
 ln -s lib%{name}.so.%{major}.%{version} %{buildroot}%{_libdir}/lib%{name}.so
-install -p -m 644 %{name}.h %{buildroot}%{_includedir}
+install -p -m 644 *.h %{buildroot}%{_includedir}
 
 %if %mdkversion < 200900
 %post -n %{libname} -p /sbin/ldconfig
@@ -80,5 +80,5 @@ install -p -m 644 %{name}.h %{buildroot}%{_includedir}
 %files -n %{develname}
 %defattr(-,root,root)
 %doc changes.txt readme.txt
-%{_includedir}/tinyxml.h
+%{_includedir}/*.h
 %{_libdir}/libtinyxml.so
