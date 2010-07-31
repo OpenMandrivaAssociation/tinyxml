@@ -1,4 +1,4 @@
-%define realver 2_5_3
+%define realver 2_6_1
 # (tpg) please don't change major, it should be set to 0
 %define major 0
 %define libname %mklibname %{name} %{major}
@@ -7,7 +7,7 @@
 Summary:	A small and simple XML parser
 Name:		tinyxml
 Version:	%(echo %realver| tr '_' '.')
-Release:	%mkrel 3
+Release:	%mkrel 1
 License:	zlib
 Group:		System/Libraries
 Url:		http://www.grinninglizard.com/tinyxml/
@@ -46,10 +46,11 @@ Development files and headers for %{name}.
 %build
 
 for i in tinyxml.cpp tinystr.cpp tinyxmlerror.cpp tinyxmlparser.cpp; do
-  g++ %{optflags} -fPIC -o $i.o -c $i
+ 	g++ %{optflags} -fPIC -o $i.o -c $i
 done
-  g++ %{optflags} -shared -o lib%{name}.so.%{major}.%{version} \
-     -Wl,-soname,lib%{name}.so.%{major} *.cpp.o
+g++ %{optflags} -shared -o lib%{name}.so.0.%{version} \
+    %{ldflags} -Wl,-soname,lib%{name}.so.0 *.cpp.o 
+
 
 %install
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
