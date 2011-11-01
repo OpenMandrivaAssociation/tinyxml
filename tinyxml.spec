@@ -1,4 +1,4 @@
-%define realver 2_6_1
+%define realver 2_6_2
 # (tpg) please don't change major, it should be set to 0
 %define major 0
 %define libname %mklibname %{name} %{major}
