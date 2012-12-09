@@ -83,3 +83,29 @@ install -p -m 644 *.h %{buildroot}%{_includedir}
 %doc changes.txt readme.txt
 %{_includedir}/*.h
 %{_libdir}/libtinyxml.so
+
+
+%changelog
+* Tue Nov 01 2011 Tomasz Pawel Gajc <tpg@mandriva.org> 2.6.2-1mdv2012.0
++ Revision: 709263
+- update to new version 2.6.2
+
+* Sat Jul 31 2010 Tomasz Pawel Gajc <tpg@mandriva.org> 2.6.1-1mdv2011.0
++ Revision: 563984
+- update to new version 2.6.1
+- pass %%ldflags
+
+* Sun Jan 31 2010 Tomasz Pawel Gajc <tpg@mandriva.org> 2.5.3-3mdv2010.1
++ Revision: 498904
+- install all headers
+
+* Wed Sep 09 2009 Thierry Vignaud <tv@mandriva.org> 2.5.3-2mdv2010.0
++ Revision: 434399
+- rebuild
+
+* Mon Aug 25 2008 Tomasz Pawel Gajc <tpg@mandriva.org> 2.5.3-1mdv2009.0
++ Revision: 275847
+- add spec file and sources
+- make it work
+- Created package structure for tinyxml.
+
