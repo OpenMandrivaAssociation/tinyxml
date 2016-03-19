@@ -7,7 +7,7 @@
 Summary:	A small and simple XML parser
 Name:		tinyxml
 Version:	%(echo %realver| tr '_' '.')
-Release:	12
+Release:	13
 License:	zlib
 Group:		System/Libraries
 Url:		http://www.grinninglizard.com/tinyxml/
