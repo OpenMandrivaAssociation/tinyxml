@@ -7,13 +7,12 @@
 Summary:	A small and simple XML parser
 Name:		tinyxml
 Version:	%(echo %realver| tr '_' '.')
-Release:	13
+Release:	14
 License:	zlib
 Group:		System/Libraries
 Url:		http://www.grinninglizard.com/tinyxml/
 Source0:	http://downloads.sourceforge.net/tinyxml/%{name}_%{realver}.tar.bz2
 Patch0:		%{name}-2.5.3-stl.patch
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 TinyXML is a simple, small, C++ XML parser
@@ -41,20 +40,18 @@ Development files and headers for %{name}.
 
 %prep
 %setup -qn %{name}
-%patch0 -p1
+%apply_patches
 
 %build
 
 for i in tinyxml.cpp tinystr.cpp tinyxmlerror.cpp tinyxmlparser.cpp; do
- 	g++ %{optflags} -fPIC -o $i.o -c $i
+ 	%{__cxx} %{optflags} -fPIC -o $i.o -c $i
 done
-g++ %{optflags} -shared -o lib%{name}.so.0.%{version} \
+%{__cxx} %{optflags} -shared -o lib%{name}.so.0.%{version} \
     %{ldflags} -Wl,-soname,lib%{name}.so.0 *.cpp.o 
 
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
-
 # Not really designed to be build as lib, DYI
 mkdir -p %{buildroot}%{_libdir}
 mkdir -p %{buildroot}%{_includedir}
