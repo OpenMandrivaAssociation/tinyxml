@@ -40,7 +40,7 @@ Development files and headers for %{name}.
 
 %prep
 %setup -qn %{name}
-%apply_patches
+%autopatch -p1
 
 %build
 
