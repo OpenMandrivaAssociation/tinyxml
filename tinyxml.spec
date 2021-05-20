@@ -7,7 +7,7 @@
 Summary:	A small and simple XML parser
 Name:		tinyxml
 Version:	%(echo %realver| tr '_' '.')
-Release:	16
+Release:	17
 License:	zlib
 Group:		System/Libraries
 Url:		http://www.grinninglizard.com/tinyxml/
@@ -15,7 +15,7 @@ Source0:	http://downloads.sourceforge.net/tinyxml/%{name}_%{realver}.tar.bz2
 Patch0:		%{name}-2.5.3-stl.patch
 
 %description
-TinyXML is a simple, small, C++ XML parser
+TinyXML is a simple, small, C++ XML parser.
 
 %package -n %{libname}
 Summary:	A small and simple XML parsing library
@@ -39,16 +39,14 @@ Requires:	%{libname} = %{version}-%{release}
 Development files and headers for %{name}.
 
 %prep
-%setup -qn %{name}
-%autopatch -p1
+%autosetup -n %{name} -p1
 
 %build
-
 for i in tinyxml.cpp tinystr.cpp tinyxmlerror.cpp tinyxmlparser.cpp; do
  	%{__cxx} %{optflags} -fPIC -o $i.o -c $i
 done
 %{__cxx} %{optflags} -shared -o lib%{name}.so.0.%{version} \
-    %{ldflags} -Wl,-soname,lib%{name}.so.0 *.cpp.o 
+    %{build_ldflags} -Wl,-soname,lib%{name}.so.0 *.cpp.o 
 
 
 %install
@@ -60,49 +58,13 @@ ln -s lib%{name}.so.%{major}.%{version} %{buildroot}%{_libdir}/lib%{name}.so.%{m
 ln -s lib%{name}.so.%{major}.%{version} %{buildroot}%{_libdir}/lib%{name}.so
 install -p -m 644 *.h %{buildroot}%{_includedir}
 
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
-
-%clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
 
 %files -n %{libname}
-%defattr(-,root,root)
 %{_libdir}/libtinyxml.so.%{major}*
 
 %files -n %{develname}
-%defattr(-,root,root)
 %doc changes.txt readme.txt
 %{_includedir}/*.h
 %{_libdir}/libtinyxml.so
 
-
-%changelog
-* Tue Nov 01 2011 Tomasz Pawel Gajc <tpg@mandriva.org> 2.6.2-1mdv2012.0
-+ Revision: 709263
-- update to new version 2.6.2
-
-* Sat Jul 31 2010 Tomasz Pawel Gajc <tpg@mandriva.org> 2.6.1-1mdv2011.0
-+ Revision: 563984
-- update to new version 2.6.1
-- pass %%ldflags
-
-* Sun Jan 31 2010 Tomasz Pawel Gajc <tpg@mandriva.org> 2.5.3-3mdv2010.1
-+ Revision: 498904
-- install all headers
-
-* Wed Sep 09 2009 Thierry Vignaud <tv@mandriva.org> 2.5.3-2mdv2010.0
-+ Revision: 434399
-- rebuild
-
-* Mon Aug 25 2008 Tomasz Pawel Gajc <tpg@mandriva.org> 2.5.3-1mdv2009.0
-+ Revision: 275847
-- add spec file and sources
-- make it work
-- Created package structure for tinyxml.
 
