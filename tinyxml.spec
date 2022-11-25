@@ -7,12 +7,13 @@
 Summary:	A small and simple XML parser
 Name:		tinyxml
 Version:	%(echo %realver| tr '_' '.')
-Release:	17
+Release:	18
 License:	zlib
 Group:		System/Libraries
 Url:		http://www.grinninglizard.com/tinyxml/
 Source0:	http://downloads.sourceforge.net/tinyxml/%{name}_%{realver}.tar.bz2
 Patch0:		%{name}-2.5.3-stl.patch
+Source1:	https://src.fedoraproject.org/rpms/tinyxml/raw/rawhide/f/tinyxml.pc.in
 
 %description
 TinyXML is a simple, small, C++ XML parser.
@@ -58,6 +59,13 @@ ln -s lib%{name}.so.%{major}.%{version} %{buildroot}%{_libdir}/lib%{name}.so.%{m
 ln -s lib%{name}.so.%{major}.%{version} %{buildroot}%{_libdir}/lib%{name}.so
 install -p -m 644 *.h %{buildroot}%{_includedir}
 
+mkdir -p %{buildroot}%{_libdir}/pkgconfig
+sed -e 's![@]prefix[@]!%{_prefix}!g' \
+ -e 's![@]exec_prefix[@]!%{_exec_prefix}!g' \
+ -e 's![@]libdir[@]!%{_libdir}!g' \
+ -e 's![@]includedir[@]!%{_includedir}!g' \
+ -e 's![@]version[@]!%{version}!g' \
+ %{SOURCE1} > %{buildroot}%{_libdir}/pkgconfig/%{name}.pc
 
 %files -n %{libname}
 %{_libdir}/libtinyxml.so.%{major}*
@@ -66,5 +74,4 @@ install -p -m 644 *.h %{buildroot}%{_includedir}
 %doc changes.txt readme.txt
 %{_includedir}/*.h
 %{_libdir}/libtinyxml.so
-
-
+%{_libdir}/pkgconfig/tinyxml.pc
