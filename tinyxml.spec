@@ -10,7 +10,7 @@ Version:	%(echo %realver| tr '_' '.')
 Release:	19
 License:	zlib
 Group:		System/Libraries
-Url:		http://www.grinninglizard.com/tinyxml/
+Url:		https://www.grinninglizard.com/tinyxml/
 Source0:	http://downloads.sourceforge.net/tinyxml/%{name}_%{realver}.tar.bz2
 Patch0:		%{name}-2.5.3-stl.patch
 Source1:	https://src.fedoraproject.org/rpms/tinyxml/raw/rawhide/f/tinyxml.pc.in
